@@ -1,0 +1,407 @@
+<script setup lang="ts">
+import MainLayout from '@/layouts/MainLayout.vue';
+import { ref } from 'vue';
+
+// Placeholder data - in a real app, this would come from the backend
+const profile = {
+  name: 'John Doe',
+  title: 'Full Stack Developer',
+  bio: 'Passionate developer with expertise in Laravel, Vue.js, and modern web technologies.',
+  skills: ['Laravel', 'Vue.js', 'TypeScript', 'Tailwind CSS', 'MySQL', 'Docker'],
+};
+
+// Featured projects data
+const featuredProjects = [
+  {
+    id: 1,
+    title: 'E-commerce Platform',
+    description: 'A full-featured e-commerce platform with product management, cart, and checkout.',
+    thumbnail: 'https://placehold.co/600x400/indigo/white?text=E-commerce+Platform',
+    technologies: ['Laravel', 'Vue.js', 'Stripe'],
+  },
+  {
+    id: 2,
+    title: 'Portfolio Website',
+    description: 'A personal portfolio website with admin dashboard for content management.',
+    thumbnail: 'https://placehold.co/600x400/indigo/white?text=Portfolio+Website',
+    technologies: ['Laravel', 'Inertia.js', 'Vue.js', 'Tailwind CSS'],
+  },
+  {
+    id: 3,
+    title: 'Task Management App',
+    description: 'A collaborative task management application with real-time updates.',
+    thumbnail: 'https://placehold.co/600x400/indigo/white?text=Task+Management',
+    technologies: ['Laravel', 'Vue.js', 'Pusher', 'MySQL'],
+  },
+];
+
+// Blog posts data
+const latestPosts = [
+  {
+    id: 1,
+    title: 'Getting Started with Laravel and Inertia.js',
+    excerpt: 'Learn how to build modern single-page applications with Laravel and Inertia.js.',
+    published_at: '2023-05-10',
+    thumbnail: 'https://placehold.co/600x400/indigo/white?text=Laravel+and+Inertia',
+  },
+  {
+    id: 2,
+    title: 'Mastering Tailwind CSS',
+    excerpt: 'Tips and tricks for building beautiful interfaces with Tailwind CSS.',
+    published_at: '2023-05-05',
+    thumbnail: 'https://placehold.co/600x400/indigo/white?text=Tailwind+CSS',
+  },
+];
+
+// Testimonials data
+const testimonials = [
+  {
+    id: 1,
+    name: 'Jane Smith',
+    position: 'CEO at TechCorp',
+    content: 'John delivered an exceptional website that exceeded our expectations. His attention to detail and technical expertise made the project a success.',
+    avatar: 'https://placehold.co/100/indigo/white?text=JS',
+  },
+  {
+    id: 2,
+    name: 'Mike Johnson',
+    position: 'Marketing Director',
+    content: 'Working with John was a pleasure. He understood our requirements perfectly and delivered a high-quality solution on time and within budget.',
+    avatar: 'https://placehold.co/100/indigo/white?text=MJ',
+  },
+];
+
+// Contact form state
+const isContactFormSubmitted = ref(false);
+const contactForm = ref({
+  name: '',
+  email: '',
+  message: '',
+});
+
+// Contact form submission handler
+const submitContactForm = () => {
+  // In a real app, this would send the form data to the backend
+  console.log('Form submitted:', contactForm.value);
+  isContactFormSubmitted.value = true;
+
+  // Reset form after submission
+  setTimeout(() => {
+    contactForm.value = {
+      name: '',
+      email: '',
+      message: '',
+    };
+    isContactFormSubmitted.value = false;
+  }, 3000);
+};
+</script>
+
+<template>
+  <MainLayout title="John Doe - Full Stack Developer" metaDescription="Personal portfolio of John Doe, a Full Stack Developer specializing in Laravel, Vue.js, and modern web technologies.">
+    <!-- Hero Section -->
+    <section class="relative bg-gradient-to-r from-indigo-600 to-purple-600 text-white">
+      <div class="absolute inset-0 bg-black opacity-20"></div>
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-24 relative z-10">
+        <div class="flex flex-col md:flex-row items-center">
+          <div class="md:w-1/2 mb-10 md:mb-0">
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
+              Hi, I'm {{ profile.name }}
+            </h1>
+            <h2 class="text-xl md:text-2xl lg:text-3xl mb-6">{{ profile.title }}</h2>
+            <p class="text-lg mb-8 max-w-lg">{{ profile.bio }}</p>
+            <div class="flex flex-wrap gap-2 mb-8">
+              <span v-for="skill in profile.skills" :key="skill" class="px-3 py-1 bg-white/20 rounded-full text-sm">
+                {{ skill }}
+              </span>
+            </div>
+            <div class="flex space-x-4">
+              <a href="#contact" class="px-6 py-3 bg-white text-indigo-600 rounded-lg font-medium hover:bg-gray-100 transition duration-300">
+                Contact Me
+              </a>
+              <a href="#portfolio" class="px-6 py-3 bg-transparent border border-white rounded-lg font-medium hover:bg-white/10 transition duration-300">
+                View My Work
+              </a>
+            </div>
+          </div>
+          <div class="md:w-1/2 flex justify-center">
+            <div class="relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-white/30">
+              <img src="https://placehold.co/400/indigo/white?text=JD" alt="John Doe" class="w-full h-full object-cover" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-white dark:bg-gray-800">
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+          <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">About Me</h2>
+          <div class="w-20 h-1 bg-indigo-600 mx-auto"></div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+          <div>
+            <img src="https://placehold.co/600x800/indigo/white?text=About+Me" alt="About Me" class="rounded-lg shadow-lg w-full" />
+          </div>
+          <div>
+            <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">My Journey</h3>
+            <p class="text-gray-700 dark:text-gray-300 mb-6">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nisl vel ultricies lacinia, nisl nisl aliquam nisl, eget aliquam nisl nisl sit amet nisl. Sed euismod, nisl vel ultricies lacinia, nisl nisl aliquam nisl, eget aliquam nisl nisl sit amet nisl.
+            </p>
+            <p class="text-gray-700 dark:text-gray-300 mb-6">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nisl vel ultricies lacinia, nisl nisl aliquam nisl, eget aliquam nisl nisl sit amet nisl. Sed euismod, nisl vel ultricies lacinia, nisl nisl aliquam nisl, eget aliquam nisl nisl sit amet nisl.
+            </p>
+            <div class="grid grid-cols-2 gap-4 mb-8">
+              <div>
+                <h4 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Education</h4>
+                <p class="text-gray-700 dark:text-gray-300">Bachelor of Computer Science<br>University of Technology</p>
+              </div>
+              <div>
+                <h4 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Experience</h4>
+                <p class="text-gray-700 dark:text-gray-300">5+ years of professional experience<br>in web development</p>
+              </div>
+            </div>
+            <a href="#" class="inline-flex items-center px-6 py-3 bg-indigo-600 text-white rounded-lg font-medium hover:bg-indigo-700 transition duration-300">
+              Download Resume
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="py-20 bg-gray-50 dark:bg-gray-900">
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+          <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">Featured Projects</h2>
+          <div class="w-20 h-1 bg-indigo-600 mx-auto"></div>
+          <p class="text-gray-700 dark:text-gray-300 mt-4 max-w-2xl mx-auto">
+            Here are some of my recent projects. Each project showcases different skills and technologies.
+          </p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div v-for="project in featuredProjects" :key="project.id" class="bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-lg transition-transform duration-300 hover:transform hover:scale-105">
+            <img :src="project.thumbnail" :alt="project.title" class="w-full h-48 object-cover" />
+            <div class="p-6">
+              <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">{{ project.title }}</h3>
+              <p class="text-gray-700 dark:text-gray-300 mb-4">{{ project.description }}</p>
+              <div class="flex flex-wrap gap-2 mb-4">
+                <span v-for="tech in project.technologies" :key="tech" class="px-2 py-1 bg-indigo-100 dark:bg-indigo-900 text-indigo-800 dark:text-indigo-200 rounded text-xs">
+                  {{ tech }}
+                </span>
+              </div>
+              <a href="#" class="text-indigo-600 dark:text-indigo-400 font-medium hover:text-indigo-800 dark:hover:text-indigo-300 inline-flex items-center">
+                View Project
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="text-center mt-12">
+          <a href="/portfolio" class="inline-flex items-center px-6 py-3 bg-indigo-600 text-white rounded-lg font-medium hover:bg-indigo-700 transition duration-300">
+            View All Projects
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Blog Section -->
+    <section id="blog" class="py-20 bg-white dark:bg-gray-800">
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+          <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">Latest Articles</h2>
+          <div class="w-20 h-1 bg-indigo-600 mx-auto"></div>
+          <p class="text-gray-700 dark:text-gray-300 mt-4 max-w-2xl mx-auto">
+            I share my knowledge and experiences through articles on web development, design, and technology.
+          </p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div v-for="post in latestPosts" :key="post.id" class="bg-gray-50 dark:bg-gray-700 rounded-lg overflow-hidden shadow-lg flex flex-col md:flex-row">
+            <div class="md:w-2/5">
+              <img :src="post.thumbnail" :alt="post.title" class="w-full h-full object-cover" />
+            </div>
+            <div class="md:w-3/5 p-6">
+              <div class="text-sm text-gray-500 dark:text-gray-400 mb-2">{{ new Date(post.published_at).toLocaleDateString() }}</div>
+              <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">{{ post.title }}</h3>
+              <p class="text-gray-700 dark:text-gray-300 mb-4">{{ post.excerpt }}</p>
+              <a href="#" class="text-indigo-600 dark:text-indigo-400 font-medium hover:text-indigo-800 dark:hover:text-indigo-300 inline-flex items-center mt-auto">
+                Read More
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="text-center mt-12">
+          <a href="/blog" class="inline-flex items-center px-6 py-3 bg-indigo-600 text-white rounded-lg font-medium hover:bg-indigo-700 transition duration-300">
+            View All Articles
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="py-20 bg-gray-50 dark:bg-gray-900">
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+          <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">Client Testimonials</h2>
+          <div class="w-20 h-1 bg-indigo-600 mx-auto"></div>
+          <p class="text-gray-700 dark:text-gray-300 mt-4 max-w-2xl mx-auto">
+            Here's what some of my clients have to say about working with me.
+          </p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div v-for="testimonial in testimonials" :key="testimonial.id" class="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg">
+            <div class="flex items-center mb-4">
+              <img :src="testimonial.avatar" :alt="testimonial.name" class="w-12 h-12 rounded-full mr-4" />
+              <div>
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">{{ testimonial.name }}</h3>
+                <p class="text-gray-600 dark:text-gray-400">{{ testimonial.position }}</p>
+              </div>
+            </div>
+            <p class="text-gray-700 dark:text-gray-300 italic">
+              "{{ testimonial.content }}"
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-white dark:bg-gray-800">
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+          <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">Get In Touch</h2>
+          <div class="w-20 h-1 bg-indigo-600 mx-auto"></div>
+          <p class="text-gray-700 dark:text-gray-300 mt-4 max-w-2xl mx-auto">
+            Have a project in mind or want to collaborate? Feel free to reach out to me.
+          </p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+          <div>
+            <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">Contact Information</h3>
+            <div class="space-y-4">
+              <div class="flex items-start">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-3 text-indigo-600 dark:text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+                <div>
+                  <h4 class="text-lg font-medium text-gray-900 dark:text-white">Email</h4>
+                  <p class="text-gray-700 dark:text-gray-300">contact@example.com</p>
+                </div>
+              </div>
+              <div class="flex items-start">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-3 text-indigo-600 dark:text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                </svg>
+                <div>
+                  <h4 class="text-lg font-medium text-gray-900 dark:text-white">Phone</h4>
+                  <p class="text-gray-700 dark:text-gray-300">+1 (555) 123-4567</p>
+                </div>
+              </div>
+              <div class="flex items-start">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-3 text-indigo-600 dark:text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+                <div>
+                  <h4 class="text-lg font-medium text-gray-900 dark:text-white">Location</h4>
+                  <p class="text-gray-700 dark:text-gray-300">123 Main St, City, Country</p>
+                </div>
+              </div>
+            </div>
+            <div class="mt-8">
+              <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">Follow Me</h3>
+              <div class="flex space-x-4">
+                <a href="#" class="text-gray-500 hover:text-indigo-600 dark:text-gray-400 dark:hover:text-indigo-400">
+                  <span class="sr-only">GitHub</span>
+                  <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                    <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd" />
+                  </svg>
+                </a>
+                <a href="#" class="text-gray-500 hover:text-indigo-600 dark:text-gray-400 dark:hover:text-indigo-400">
+                  <span class="sr-only">LinkedIn</span>
+                  <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+                  </svg>
+                </a>
+                <a href="#" class="text-gray-500 hover:text-indigo-600 dark:text-gray-400 dark:hover:text-indigo-400">
+                  <span class="sr-only">Twitter</span>
+                  <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" />
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div>
+            <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">Send Me a Message</h3>
+            <form @submit.prevent="submitContactForm" class="space-y-6">
+              <div>
+                <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Name</label>
+                <input
+                  id="name"
+                  v-model="contactForm.name"
+                  type="text"
+                  required
+                  class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                />
+              </div>
+              <div>
+                <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Email</label>
+                <input
+                  id="email"
+                  v-model="contactForm.email"
+                  type="email"
+                  required
+                  class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                />
+              </div>
+              <div>
+                <label for="message" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Message</label>
+                <textarea
+                  id="message"
+                  v-model="contactForm.message"
+                  rows="5"
+                  required
+                  class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                ></textarea>
+              </div>
+              <div>
+                <button
+                  type="submit"
+                  class="w-full px-6 py-3 bg-indigo-600 text-white rounded-lg font-medium hover:bg-indigo-700 transition duration-300 flex items-center justify-center"
+                  :disabled="isContactFormSubmitted"
+                >
+                  <span v-if="!isContactFormSubmitted">Send Message</span>
+                  <span v-else class="flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 animate-spin" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                    </svg>
+                    Sending...
+                  </span>
+                </button>
+              </div>
+              <div v-if="isContactFormSubmitted" class="text-green-600 dark:text-green-400 text-center">
+                Thank you for your message! I'll get back to you soon.
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </MainLayout>
+</template>

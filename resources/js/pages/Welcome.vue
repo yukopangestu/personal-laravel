@@ -1,43 +1,137 @@
 <script setup lang="ts">
-import { Head, Link } from '@inertiajs/vue3';
+import MainLayout from '@/layouts/MainLayout.vue';
+import { ref } from 'vue';
+
+// Placeholder data - in a real app, this would come from the backend
+const profile = {
+  name: 'John Doe',
+  title: 'Full Stack Developer',
+  bio: 'Passionate developer with expertise in Laravel, Vue.js, and modern web technologies.',
+  skills: ['Laravel', 'Vue.js', 'TypeScript', 'Tailwind CSS', 'MySQL', 'Docker'],
+};
+
+// Featured projects data
+const featuredProjects = [
+  {
+    id: 1,
+    title: 'E-commerce Platform',
+    description: 'A full-featured e-commerce platform with product management, cart, and checkout.',
+    thumbnail: 'https://placehold.co/600x400/indigo/white?text=E-commerce+Platform',
+    technologies: ['Laravel', 'Vue.js', 'Stripe'],
+  },
+  {
+    id: 2,
+    title: 'Portfolio Website',
+    description: 'A personal portfolio website with admin dashboard for content management.',
+    thumbnail: 'https://placehold.co/600x400/indigo/white?text=Portfolio+Website',
+    technologies: ['Laravel', 'Inertia.js', 'Vue.js', 'Tailwind CSS'],
+  },
+  {
+    id: 3,
+    title: 'Task Management App',
+    description: 'A collaborative task management application with real-time updates.',
+    thumbnail: 'https://placehold.co/600x400/indigo/white?text=Task+Management',
+    technologies: ['Laravel', 'Vue.js', 'Pusher', 'MySQL'],
+  },
+];
+
+// Blog posts data
+const latestPosts = [
+  {
+    id: 1,
+    title: 'Getting Started with Laravel and Inertia.js',
+    excerpt: 'Learn how to build modern single-page applications with Laravel and Inertia.js.',
+    published_at: '2023-05-10',
+    thumbnail: 'https://placehold.co/600x400/indigo/white?text=Laravel+and+Inertia',
+  },
+  {
+    id: 2,
+    title: 'Mastering Tailwind CSS',
+    excerpt: 'Tips and tricks for building beautiful interfaces with Tailwind CSS.',
+    published_at: '2023-05-05',
+    thumbnail: 'https://placehold.co/600x400/indigo/white?text=Tailwind+CSS',
+  },
+];
+
+// Testimonials data
+const testimonials = [
+  {
+    id: 1,
+    name: 'Jane Smith',
+    position: 'CEO at TechCorp',
+    content: 'John delivered an exceptional website that exceeded our expectations. His attention to detail and technical expertise made the project a success.',
+    avatar: 'https://placehold.co/100/indigo/white?text=JS',
+  },
+  {
+    id: 2,
+    name: 'Mike Johnson',
+    position: 'Marketing Director',
+    content: 'Working with John was a pleasure. He understood our requirements perfectly and delivered a high-quality solution on time and within budget.',
+    avatar: 'https://placehold.co/100/indigo/white?text=MJ',
+  },
+];
+
+// Contact form state
+const isContactFormSubmitted = ref(false);
+const contactForm = ref({
+  name: '',
+  email: '',
+  message: '',
+});
+
+// Contact form submission handler
+const submitContactForm = () => {
+  // In a real app, this would send the form data to the backend
+  console.log('Form submitted:', contactForm.value);
+  isContactFormSubmitted.value = true;
+
+  // Reset form after submission
+  setTimeout(() => {
+    contactForm.value = {
+      name: '',
+      email: '',
+      message: '',
+    };
+    isContactFormSubmitted.value = false;
+  }, 3000);
+};
 </script>
 
 <template>
-    <Head title="Welcome">
-        <link rel="preconnect" href="https://rsms.me/" />
-        <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
-    </Head>
-    <div class="flex min-h-screen flex-col items-center bg-[#FDFDFC] p-6 text-[#1b1b18] dark:bg-[#0a0a0a] lg:justify-center lg:p-8">
-        <header class="not-has-[nav]:hidden mb-6 w-full max-w-[335px] text-sm lg:max-w-4xl">
-            <nav class="flex items-center justify-end gap-4">
-                <Link
-                    v-if="$page.props.auth.user"
-                    :href="route('dashboard')"
-                    class="inline-block rounded-sm border border-[#19140035] px-5 py-1.5 text-sm leading-normal text-[#1b1b18] hover:border-[#1915014a] dark:border-[#3E3E3A] dark:text-[#EDEDEC] dark:hover:border-[#62605b]"
-                >
-                    Dashboard
-                </Link>
-                <template v-else>
-                    <Link
-                        :href="route('login')"
-                        class="inline-block rounded-sm border border-transparent px-5 py-1.5 text-sm leading-normal text-[#1b1b18] hover:border-[#19140035] dark:text-[#EDEDEC] dark:hover:border-[#3E3E3A]"
-                    >
-                        Log in
-                    </Link>
-                    <Link
-                        :href="route('register')"
-                        class="inline-block rounded-sm border border-[#19140035] px-5 py-1.5 text-sm leading-normal text-[#1b1b18] hover:border-[#1915014a] dark:border-[#3E3E3A] dark:text-[#EDEDEC] dark:hover:border-[#62605b]"
-                    >
-                        Register
-                    </Link>
-                </template>
-            </nav>
-        </header>
-        <div class="duration-750 starting:opacity-0 flex w-full items-center justify-center opacity-100 transition-opacity lg:grow">
-            <main class="flex w-full max-w-[335px] flex-col-reverse overflow-hidden rounded-lg lg:max-w-4xl lg:flex-row">
-                <div
-                    class="flex-1 rounded-bl-lg rounded-br-lg bg-white p-6 pb-12 text-[13px] leading-[20px] shadow-[inset_0px_0px_0px_1px_rgba(26,26,0,0.16)] dark:bg-[#161615] dark:text-[#EDEDEC] dark:shadow-[inset_0px_0px_0px_1px_#fffaed2d] lg:rounded-br-none lg:rounded-tl-lg lg:p-20"
-                >
+  <MainLayout title="John Doe - Full Stack Developer" metaDescription="Personal portfolio of John Doe, a Full Stack Developer specializing in Laravel, Vue.js, and modern web technologies.">
+    <!-- Hero Section -->
+    <section class="relative bg-gradient-to-r from-indigo-600 to-purple-600 text-white">
+      <div class="absolute inset-0 bg-black opacity-20"></div>
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-24 relative z-10">
+        <div class="flex flex-col md:flex-row items-center">
+          <div class="md:w-1/2 mb-10 md:mb-0">
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
+              Hi, I'm {{ profile.name }}
+            </h1>
+            <h2 class="text-xl md:text-2xl lg:text-3xl mb-6">{{ profile.title }}</h2>
+            <p class="text-lg mb-8 max-w-lg">{{ profile.bio }}</p>
+            <div class="flex flex-wrap gap-2 mb-8">
+              <span v-for="skill in profile.skills" :key="skill" class="px-3 py-1 bg-white/20 rounded-full text-sm">
+                {{ skill }}
+              </span>
+            </div>
+            <div class="flex space-x-4">
+              <a href="#contact" class="px-6 py-3 bg-white text-indigo-600 rounded-lg font-medium hover:bg-gray-100 transition duration-300">
+                Contact Me
+              </a>
+              <a href="#portfolio" class="px-6 py-3 bg-transparent border border-white rounded-lg font-medium hover:bg-white/10 transition duration-300">
+                View My Work
+              </a>
+            </div>
+          </div>
+          <div class="md:w-1/2 flex justify-center">
+            <div class="relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-white/30">
+              <img src="https://placehold.co/400/indigo/white?text=JD" alt="John Doe" class="w-full h-full object-cover" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
                     <h1 class="mb-1 font-medium">Let's get started</h1>
                     <p class="mb-2 text-[#706f6c] dark:text-[#A1A09A]">
                         Laravel has an incredibly rich ecosystem. <br />We suggest starting with the following.
